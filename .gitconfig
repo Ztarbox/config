@@ -1,0 +1,18 @@
+[core]
+	editor = code --wait
+[mergetool "vscode"]
+	cmd = code --wait --new-window $MERGED
+[difftool "vscode"]
+	cmd = code --wait --diff --new-window $LOCAL $REMOTE
+[alias]
+	co = checkout
+	cob = checkout -b
+	cod = checkout develop
+	pop = stash pop
+	br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+	bp = "!git fetch origin --prune && git branch --merged origin/develop | grep -v 'develop$' | xargs -r git branch -d"
+	upstream = "!git push -u origin HEAD"
+	fp = "!git f && git p"
+	p = pull
+	f = fetch --all --prune
+	codr = "!git cod && git fp && git bp"
