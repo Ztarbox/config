@@ -9,8 +9,8 @@ Import-Module posh-git
 Import-Module Terminal-Icons
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\craver.omp.json" | Invoke-Expression
 
-#Import-Module DockerComposeCompletion
-#Import-Module yarn-completion
+Import-Module DockerComposeCompletion
+Import-Module yarn-completion
 Import-Module npm-completion
 
 # PowerShell parameter completion shim for the dotnet CLI
@@ -30,8 +30,8 @@ if ($host.Name -eq 'ConsoleHost') {
 }
 
 $modules = @(
-#  "DockerComposeCompletion",
-#  "yarn-completion",
+  "DockerComposeCompletion",
+  "yarn-completion",
   "npm-completion",
   "posh-git",
   "Terminal-Icons"
