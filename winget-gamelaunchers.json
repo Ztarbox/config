@@ -14,7 +14,10 @@
 				},
 				{
 					"PackageIdentifier" : "ElectronicArts.EADesktop"
-				}
+				},
+				{
+					"PackageIdentifier" : "EpicGames.EpicGamesLauncher"
+				},
 			],
 			"SourceDetails" : 
 			{
