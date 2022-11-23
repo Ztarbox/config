@@ -4,12 +4,12 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+oh-my-posh init pwsh | Invoke-Expression
 Import-Module posh-git
-Import-Module oh-my-posh
 Import-Module Terminal-Icons
-Set-PoshPrompt craver
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\craver.omp.json" | Invoke-Expression
 
-#Import-Module DockerComposeCompletion
+Import-Module DockerComposeCompletion
 Import-Module yarn-completion
 Import-Module npm-completion
 
@@ -21,13 +21,11 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
          }
  }
 
-if ($host.Name -eq 'ConsoleHost')
-{
-  Import-Module PSReadLine
-  Set-PSReadLineOption -PredictionSource History
-  Set-PSReadLineOption -PredictionViewStyle ListView
-  Set-PSReadLineOption -EditMode Windows
-  Set-PSReadLineKeyHandler -Chord "Ctrl+RightArrow" -Function ForwardWord
+if ($host.Name -eq 'ConsoleHost') {
+   Set-PSReadLineOption -PredictionSource History
+   Set-PSReadLineOption -PredictionViewStyle ListView
+   Set-PSReadLineOption -EditMode Windows
+   Set-PSReadLineKeyHandler -Chord "Ctrl+RightArrow" -Function ForwardWord
 }
 
 $modules = @(
@@ -35,17 +33,16 @@ $modules = @(
   "yarn-completion",
   "npm-completion",
   "posh-git",
-  "oh-my-posh",
   "Terminal-Icons"
 );
 
 
 function Update-ProfileModules {
   $modules | % { Update-Module -Name $_ };
-  Update-Module PSReadLine -AllowPrerelease;
+#  Update-Module PSReadLine -AllowPrerelease;
   Update-Module PowerShellGet -Force;
 }
 function Install-ProfileModules {
   $modules | % { Install-Module -Name $_ };
-  Install-Module PSReadLine -AllowPrerelease;
+#  Install-Module PSReadLine -AllowPrerelease;
 }
