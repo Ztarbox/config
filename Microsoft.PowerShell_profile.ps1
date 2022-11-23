@@ -9,8 +9,8 @@ Import-Module posh-git
 Import-Module Terminal-Icons
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\craver.omp.json" | Invoke-Expression
 
-Import-Module DockerComposeCompletion
-Import-Module yarn-completion
+#Import-Module DockerComposeCompletion
+#Import-Module yarn-completion
 Import-Module npm-completion
 
 # PowerShell parameter completion shim for the dotnet CLI
@@ -22,15 +22,16 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
  }
 
 if ($host.Name -eq 'ConsoleHost') {
-   Set-PSReadLineOption -PredictionSource History
-   Set-PSReadLineOption -PredictionViewStyle ListView
-   Set-PSReadLineOption -EditMode Windows
-   Set-PSReadLineKeyHandler -Chord "Ctrl+RightArrow" -Function ForwardWord
+  Set-PSReadLineOption -EditMode Windows
+  
+  Set-PSReadLineOption -PredictionViewStyle ListView
+  # Set-PSReadLineOption -PredictionViewStyle InkineView
+  # Set-PSReadLineKeyHandler -Chord "Ctrl+RightArrow" -Function ForwardWord
 }
 
 $modules = @(
-  "DockerComposeCompletion",
-  "yarn-completion",
+#  "DockerComposeCompletion",
+#  "yarn-completion",
   "npm-completion",
   "posh-git",
   "Terminal-Icons"
@@ -39,10 +40,8 @@ $modules = @(
 
 function Update-ProfileModules {
   $modules | % { Update-Module -Name $_ };
-#  Update-Module PSReadLine -AllowPrerelease;
   Update-Module PowerShellGet -Force;
 }
 function Install-ProfileModules {
   $modules | % { Install-Module -Name $_ };
-#  Install-Module PSReadLine -AllowPrerelease;
 }
